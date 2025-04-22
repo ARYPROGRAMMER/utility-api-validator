@@ -28,7 +28,7 @@ def validate_gemini_api_key(api_key):
     except Exception as e:
         # If the flash model fails, try with the Pro model
         try:
-            model = genai.GenerativeModel('gemini-1.5-pro')
+            model = genai.GenerativeModel('gemini-1.5-flash')
             response = model.generate_content(test_prompt)
             text_response = response.text.strip()
             text_valid = True
@@ -45,7 +45,7 @@ def validate_gemini_api_key(api_key):
     # Test image processing capabilities 
     try:
         # Using Gemini's multimodal capabilities - updated model name
-        model = genai.GenerativeModel('gemini-1.5-pro-vision')
+        model = genai.GenerativeModel('gemini-2.0-flash-exp-image-generation')
         response = model.generate_content([image_test_prompt])
         image_response = response.text.strip()
         image_valid = True
