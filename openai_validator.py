@@ -23,7 +23,7 @@ def validate_openai_api_key(api_key):
         # Try to handle project API keys (sk-proj-...) by using different models
         try:
             completion = client.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model="gpt-4.1",
                 messages=[
                     {"role": "system", "content": "You are a helpful assistant."},
                     {"role": "user", "content": text_prompt}
@@ -35,10 +35,10 @@ def validate_openai_api_key(api_key):
         except Exception as e1:
             # If standard model fails, try with GPT-4 which might be accessible
             if "invalid_api_key" in str(e1) and api_key.startswith("sk-proj-"):
-                # Try alternative models for project-based keys
+            
                 try:
                     completion = client.chat.completions.create(
-                        model="gpt-4",
+                        model="gpt-4o",
                         messages=[
                             {"role": "system", "content": "You are a helpful assistant."},
                             {"role": "user", "content": text_prompt}
@@ -65,7 +65,7 @@ def validate_openai_api_key(api_key):
         # Try with DALL-E 2 first
         try:
             response = client.images.generate(
-                model="dall-e-2",
+                model="dall-e-3",
                 prompt=image_prompt,
                 n=1,
                 size="256x256"
